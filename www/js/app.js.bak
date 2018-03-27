@@ -1,0 +1,138 @@
+(function() {
+  "use strict";
+  
+  function Timer(dur) {
+    var ticking = false;
+    var paused = false;
+    var pauseStart = null;
+    var startTime = null;
+    var duration = dur;
+    var timerId = null;
+    // NOTE: this is a bit odd, since we probably need elapsed to be a member variable, so that Vue can watch it.  Not sure I like this, though.
+    this.elapsed = 0;
+  
+    this.getDuration = function() {
+      return duration;
+    }
+    
+  /*  this.getElapsed = function() {
+      return elapsed;
+    } */
+    this.toggle = function() {
+     if (paused) {
+          this.unpause();
+        } else if (ticking) {
+          this.pause();
+        } else {
+          this.start();
+        }
+  }
+  
+  this.start = function() {
+    console.log("start");
+    ticking = true;
+    paused = false;
+    startTime = Date.now();
+    //duration = duration; 
+
+    this.startTicking();
+  }
+
+  this.stop = function() {
+    console.log("stop");
+    ticking = false;
+    paused = false;
+    this.stopTicking();
+  }
+
+  this.pause = function() {
+    console.log("pause");
+    paused = true;
+    ticking = false;
+    pauseStart = Date.now();
+    this.stopTicking();
+  }
+
+  this.unpause = function() {
+    console.log("unpause");
+    paused = false;
+    ticking = true;
+    var pausedFor = Date.now() - pauseStart;
+    pauseStart = null;
+    startTime += pausedFor;
+    this.startTicking();
+  }
+
+  this.startTicking = function() {
+    console.log("starting ticking");
+
+    timerId = window.setInterval(function() {
+      this.elapsed = Date.now() - startTime;
+      if (this.elapsed >= duration) {
+        console.log("Calling stop");
+        // we don't want the time remaining to ever be negative
+        this.elapsed = duration; 
+        this.stop();
+      }
+    }, 100);
+  }
+
+  this.stopTicking = function() {
+    console.log("stopping ticking");
+    window.clearInterval(timerId);
+    timerId = null;
+  }
+
+  }
+  var duration = 25; // 25s
+  var breakDuration = 5;
+  var toMillis = 1000; // should be 1000*60, for minutes
+  duration *= toMillis;
+  var startTime = Date.now();
+  var breakStart = null;
+  
+  
+  var data = {
+    timer: new Timer(duration),
+    pomoStyle: {
+      height: 0
+    },
+    onBreak: false,
+  }
+  
+
+  var app = new Vue({
+    el: "#app",
+    data: data,
+    methods: {
+      toggleTicking: function() {
+        if(this.onBreak) {
+          // TODO Break timer
+        } else {
+          this.timer.toggle()
+        }
+      },
+      decreaseSession: function() {
+        alert("Not implemented yet");
+     //   this.timer.duration--;
+      },
+      time: time,
+    },
+    watch: {
+      'timer.elapsed': function(val) {
+        this.pomoStyle = {
+          height: Math.round(val / this.timer.getDuration() * 100) + "px"
+        };
+      }
+    }
+  });
+  function time(ms) {
+   // var stripZeros = /^0+:0|^0+:?/;
+    var stripZeroes = /^0+:?0?/;
+    var time = new Date(ms).toISOString().slice(11, -5);
+   // return time;
+    return time.replace(stripZeroes, "");
+}
+
+})();
+

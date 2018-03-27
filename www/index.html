@@ -1,0 +1,38 @@
+<head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css?family=Merienda+One|Open+Sans:700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/regular.css" integrity="sha384-A/oR8MwZKeyJS+Y0tLZ16QIyje/AmPduwrvjeH6NLiLsp4cdE4uRJl8zobWXBm4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<main id="app" class="page">
+  <h1> freeCodoro </h1>
+  <div class="control-group">
+    <div class="controls break-controls">
+      <button @mousedown="increaseBreak" @mouseleave="stopIncBreak" @mouseup="stopIncBreak" class="increase">+</button> Break
+      <button @mousedown="decreaseBreak" @mouseleave="stopDecBreak" @mouseup="stopDecBreak" class="decrease">−</button>
+    </div>
+    <div class="controls  session-controls">
+      <button @mousedown="increaseSession" @mouseleave="stopInc" @mouseup="stopInc" class="increase">+</button> Session
+      <button @mousedown="decreaseSession" @mouseleave="stopDec" @mouseup="stopDec" class="decrease">−</button>
+    </div>
+  </div>
+  <div class="tomato-border">
+  <div @click="toggleTicking" class="tomato">
+    <div class="timer">
+      <i class="far fa-clock"></i>
+    <span class="duration" v-text="display.displayTime"></span>
+    </div>
+    <div class="timer break"><img id="zzz" src="https://assets.olivereytonwilliams.com/svgs/zzz.svg"></img>
+      <span class="duration" v-text="display.breakTime">-5:00</span></div>
+    <div v-bind:style="pomoStyle" class="filling"></div>
+
+  </div>
+  </div>
+</main>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/js/app.js"></script>

@@ -1,0 +1,45 @@
+main {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-family: 'Merienda One', cursive;
+}
+
+.controls {
+  display: inline-block;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tomato {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: #3f6319;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.duration {
+  position: absolute;
+  color: white;
+  z-index: 2;
+}
+
+.filling {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: #e11f00;
+  transition: all 100ms;
+}

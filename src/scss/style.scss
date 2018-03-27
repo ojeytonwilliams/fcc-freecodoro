@@ -1,0 +1,138 @@
+$tomato_red: #e11f00;
+$tomato_green: #3f6319;
+
+main {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  font-family: "Merienda One", cursive;
+}
+
+%button_before {
+  position: absolute;
+  content: " ";
+  top: -4px;
+  right: -4px;
+  left: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: 3px;
+  border: solid 2px;
+}
+
+%button {
+  position: relative;
+  border: solid white 2px;
+  border-radius: 3px;
+  width: 1.8em;
+  color: white;
+}
+
+.control-group {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 280px;
+  margin-bottom: 1em;
+}
+
+.controls {
+  /* Flex-grow 1 for all the items tries to ensure that the space is evenly distributed */
+  flex-grow: 1;
+  /* Flex-basis 0 ensures that */
+  flex-basis: 0;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  &.break-controls {
+    & > button {
+      background-color: $tomato_red;
+      @extend %button;
+      &:before {
+        @extend %button_before;
+        border-color: $tomato_red;
+      }
+    }
+  }
+
+  & > button {
+    @extend %button;
+    background-color: $tomato_green;
+    &:before {
+      @extend %button_before;
+      border-color: $tomato_green;
+    }
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tomato {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: $tomato_green;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+}
+
+.tomato-border {
+  border: solid $tomato_green 2px;
+  border-radius: 50%;
+}
+
+.duration {
+  /* position: absolute; */
+  color: white;
+  z-index: 2;
+  font-weight: 600;
+}
+
+.timer {
+  position: relative;
+  right: -7px;
+  display: flex;
+  border: solid 1px white; /*  #5f8239 */
+  margin-bottom: 1px;
+  border-radius: 3px;
+  padding: 0 2px;
+  z-index: 1;
+}
+
+.break {
+  img {
+    position: absolute;
+    right: calc(100% + 5px);
+    height: 100%;
+  }
+}
+
+.fa-clock {
+  color: white;
+  position: absolute;
+  right: calc(100% + 5px);
+  top: 2px;
+}
+
+.filling {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: $tomato_red;
+  transition: all 200ms;
+  z-index: 0;
+}
+
